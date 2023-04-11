@@ -105,6 +105,3 @@ class DataLoader:
     def Youtubeloader(self, link):
         loader = YoutubeLoader.from_youtube_channel(link, add_video_info=True)
         return loader.load()
-
-
-
