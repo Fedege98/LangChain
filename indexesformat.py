@@ -1,4 +1,4 @@
-from langchain.document_loaders import AzureBlobStorageContainerLoader, GCSFileLoader
+from langchain.document_loaders import AzureBlobStorageContainerLoader, GCSFileLoader, NotionDBLoader
 from langchain.document_loaders import AzureBlobStorageFileLoader
 from langchain.document_loaders import BigQueryLoader
 from langchain.document_loaders.csv_loader import CSVLoader
@@ -17,6 +17,7 @@ from langchain.document_loaders import UnstructuredURLLoader
 from langchain.document_loaders import SeleniumURLLoader
 from langchain.document_loaders import UnstructuredWordDocumentLoader
 from langchain.document_loaders import YoutubeLoader
+from getpass import getpass
 
 '''this class structures documents so that LLMs can best interact with them. This module contains utility 
 functions for working with documents, different types of indexes, and then examples for using those indexes in chains.'''
@@ -55,9 +56,55 @@ class DataLoader:
 
     def GCSFileload(self, project_name, bucket, blob):
         loader = GCSFileLoader(project_name, bucket, blob)
+        return loader.load()
 
     def GoogleDrive(self, folder_id):
         loader = GoogleDriveLoader(folder_id)
         loader.load()
+
+    def UnstructuredImageload(self, image):
+        loader = UnstructuredImageLoader(image)
+        return loader.load()[0]
+
+    def UnstructuredMarkdownLoad(self, path):
+        loader = UnstructuredMarkdownLoader(path)
+        return loader.load()
+
+    def NotionDirLoad(self, name_dir):
+        loader = NotionDirectoryLoader(name_dir)
+        return loader.load()
+
+    def NotionDBload(self, NOTION_TOKEN, DATABASE_ID):
+        loader = NotionDBLoader(NOTION_TOKEN, DATABASE_ID)
+        return loader.load()
+
+    def PyPDFLoad(self, path):
+        loader = PyPDFLoader(path)
+        return loader.load_and_split()
+
+    def powerpointload(self, pptx):
+        loader = UnstructuredPowerPointLoader(pptx)
+        return loader.load()
+
+    def documentation(self, root_html_scraped):
+        loader = ReadTheDocsLoader(root_html_scraped)
+        return loader.load()
+
+    def URLloader(self, urls):
+        loader = UnstructuredURLLoader(urls=urls)
+        return loader.load()
+
+    def Seleniumurloader(self, urls):
+        loader = SeleniumURLLoader(urls=urls)
+        return loader.load()
+
+    def UnstructuredWord(self, path):
+        loader = UnstructuredWordDocumentLoader(path)
+        return loader.load()
+
+    def Youtubeloader(self, link):
+        loader = YoutubeLoader.from_youtube_channel(link, add_video_info=True)
+        return loader.load()
+
 
 
