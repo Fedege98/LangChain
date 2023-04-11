@@ -16,3 +16,10 @@ from langchain.document_loaders import UnstructuredURLLoader
 from langchain.document_loaders import SeleniumURLLoader
 from langchain.document_loaders import UnstructuredWordDocumentLoader
 from langchain.document_loaders import YoutubeLoader
+
+'''this class structures documents so that LLMs can best interact with them. This module contains utility 
+functions for working with documents, different types of indexes, and then examples for using those indexes in chains.'''
+
+
+class DataLoader:
+    pass
